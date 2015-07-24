@@ -190,7 +190,7 @@
 				t.captionsButton.removeClass('mejs-captions-enabled');
 			} else {
 				for (i=0; i<t.tracks.length; i++) {
-					if (t.tracks[i].srclang == lang) {
+					if (t.tracks[i].srclang == lang && t.tracks[i].kind == 'subtitles') {
 						if (t.selectedTrack === null)
 							t.captionsButton.addClass('mejs-captions-enabled');
 						t.selectedTrack = t.tracks[i];
