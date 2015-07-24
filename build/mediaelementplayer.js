@@ -1135,7 +1135,7 @@ if (typeof jQuery != 'undefined') {
 				loading.hide();
 				controls.find('.mejs-time-buffering').hide();
 				error.show();
-				error.find('.mejs-overlay-error').html("Error loading this resource");
+				error.find('.mejs-overlay-error').html(mejs.i18n.t('Error loading this resource'));
 			}, false);
 
 			media.addEventListener('keydown', function(e) {
@@ -1372,8 +1372,6 @@ if (typeof jQuery != 'undefined') {
 (function($) {
 
 	$.extend(mejs.MepDefaults, {
-		playText: mejs.i18n.t('Play'),
-		pauseText: mejs.i18n.t('Pause')
 	});
 
 	// PLAY/pause BUTTON
@@ -1384,7 +1382,7 @@ if (typeof jQuery != 'undefined') {
 				op = t.options,
 				play = 
 				$('<div class="mejs-button mejs-playpause-button mejs-play" >' +
-					'<button type="button" aria-controls="' + t.id + '" title="' + op.playText + '" aria-label="' + op.playText + '"></button>' +
+					'<button type="button" aria-controls="' + t.id + '" title="' + mejs.i18n.t('Play') + '" aria-label="' + mejs.i18n.t('Play') + '"></button>' +
 				'</div>')
 				.appendTo(controls)
 				.click(function(e) {
@@ -1405,14 +1403,14 @@ if (typeof jQuery != 'undefined') {
 				if ('play' === which) {
 					play.removeClass('mejs-play').addClass('mejs-pause');
 					play_btn.attr({
-						'title': op.pauseText,
-						'aria-label': op.pauseText
+						'title': mejs.i18n.t('Pause'),
+						'aria-label': mejs.i18n.t('Pause')
 					});
 				} else {
 					play.removeClass('mejs-pause').addClass('mejs-play');
 					play_btn.attr({
-						'title': op.playText,
-						'aria-label': op.playText
+						'title': mejs.i18n.t('Play'),
+						'aria-label': mejs.i18n.t('Play')
 					});
 				}
 			};
@@ -1441,7 +1439,6 @@ if (typeof jQuery != 'undefined') {
 (function($) {
 
 	$.extend(mejs.MepDefaults, {
-		stopText: 'Stop'
 	});
 
 	// STOP BUTTON
@@ -1450,7 +1447,7 @@ if (typeof jQuery != 'undefined') {
 			var t = this,
 				stop = 
 				$('<div class="mejs-button mejs-stop-button mejs-stop">' +
-					'<button type="button" aria-controls="' + t.id + '" title="' + t.options.stopText + '" aria-label="' + t.options.stopText + '"></button>' +
+					'<button type="button" aria-controls="' + t.id + '" title="' + mejs.i18n.t('Stop') + '" aria-label="' + mejs.i18n.t('Stop') + '"></button>' +
 				'</div>')
 				.appendTo(controls)
 				.click(function() {
@@ -1475,8 +1472,6 @@ if (typeof jQuery != 'undefined') {
 (function($) {
 
 	$.extend(mejs.MepDefaults, {
-		progessHelpText: mejs.i18n.t(
-		'Use Left/Right Arrow keys to advance one second, Up/Down arrows to advance ten seconds.')
 	});
 
 	// progress/loaded bar
@@ -1485,7 +1480,7 @@ if (typeof jQuery != 'undefined') {
 
 			$('<div class="mejs-time-rail">' +
 				'<span  class="mejs-time-total mejs-time-slider">' +
-				//'<span class="mejs-offscreen">' + this.options.progessHelpText + '</span>' +
+				//'<span class="mejs-offscreen">' + mejs.i18n.t('Use Left/Right Arrow keys to advance one second, Up/Down arrows to advance ten seconds.') + '</span>' +
 					'<span class="mejs-time-buffering"></span>' +
 					'<span class="mejs-time-loaded"></span>' +
 					'<span class="mejs-time-current"></span>' +
@@ -1557,12 +1552,11 @@ if (typeof jQuery != 'undefined') {
             var updateSlider = function (e) {
 
 				var seconds = media.currentTime,
-					timeSliderText = mejs.i18n.t('Time Slider'),
 					time = mejs.Utility.secondsToTimeCode(seconds),
 					duration = media.duration;
 
 				slider.attr({
-					'aria-label': timeSliderText,
+					'aria-label': mejs.i18n.t('Time Slider'),
 					'aria-valuemin': 0,
 					'aria-valuemax': duration,
 					'aria-valuenow': seconds,
@@ -1843,10 +1837,7 @@ if (typeof jQuery != 'undefined') {
 (function($) {
 
 	$.extend(mejs.MepDefaults, {
-		muteText: mejs.i18n.t('Mute Toggle'),
-        allyVolumeControlText: mejs.i18n.t('Use Up/Down Arrow keys to increase or decrease volume.'),
 		hideVolumeOnTouchDevices: true,
-		
 		audioVolume: 'horizontal',
 		videoVolume: 'vertical'
 	});
@@ -1859,18 +1850,20 @@ if (typeof jQuery != 'undefined') {
 				return;
 			
 			var t = this,
+				muteText = mejs.i18n.t('Mute Toggle'),
+				allyVolumeControlText = mejs.i18n.t('Use Up/Down Arrow keys to increase or decrease volume.'),
 				mode = (t.isVideo) ? t.options.videoVolume : t.options.audioVolume,
 				mute = (mode == 'horizontal') ?
 				
 				// horizontal version
 				$('<div class="mejs-button mejs-volume-button mejs-mute">' +
 					'<button type="button" aria-controls="' + t.id + 
-						'" title="' + t.options.muteText + 
-						'" aria-label="' + t.options.muteText +
+						'" title="' + muteText +
+						'" aria-label="' + muteText +
 					'"></button>'+
 				'</div>' +
                   '<a href="javascript:void(0);" class="mejs-horizontal-volume-slider">' + // outer background
-					'<span class="mejs-offscreen">' + t.options.allyVolumeControlText + '</span>' +
+					'<span class="mejs-offscreen">' + allyVolumeControlText + '</span>' +
 					'<div class="mejs-horizontal-volume-total"></div>'+ // line background
 					'<div class="mejs-horizontal-volume-current"></div>'+ // current volume
 					'<div class="mejs-horizontal-volume-handle"></div>'+ // handle
@@ -1881,11 +1874,11 @@ if (typeof jQuery != 'undefined') {
 				// vertical version
 				$('<div class="mejs-button mejs-volume-button mejs-mute">'+
 					'<button type="button" aria-controls="' + t.id + 
-						'" title="' + t.options.muteText + 
-						'" aria-label="' + t.options.muteText + 
+						'" title="' + muteText +
+						'" aria-label="' + muteText +
 					'"></button>'+
 					'<a href="javascript:void(0);" class="mejs-volume-slider">'+ // outer background
-						'<span class="mejs-offscreen">' + t.options.allyVolumeControlText + '</span>' +                  
+						'<span class="mejs-offscreen">' + allyVolumeControlText + '</span>' +
 						'<div class="mejs-volume-total"></div>'+ // line background
 						'<div class="mejs-volume-current"></div>'+ // current volume
 						'<div class="mejs-volume-handle"></div>'+ // handle
@@ -2118,8 +2111,7 @@ if (typeof jQuery != 'undefined') {
 
 	$.extend(mejs.MepDefaults, {
 		usePluginFullScreen: true,
-		newWindowCallback: function() { return '';},
-		fullscreenText: mejs.i18n.t('Fullscreen')
+		newWindowCallback: function() { return '';}
 	});
 
 	$.extend(MediaElementPlayer.prototype, {
@@ -2165,7 +2157,7 @@ if (typeof jQuery != 'undefined') {
 				container = player.container,
 				fullscreenBtn =
 					$('<div class="mejs-button mejs-fullscreen-button">' +
-						'<button type="button" aria-controls="' + t.id + '" title="' + t.options.fullscreenText + '" aria-label="' + t.options.fullscreenText + '"></button>' +
+						'<button type="button" aria-controls="' + t.id + '" title="' + mejs.i18n.t('Fullscreen') + '" aria-label="' + mejs.i18n.t('Fullscreen') + '"></button>' +
 					'</div>')
 					.appendTo(controls);
 
@@ -2678,8 +2670,6 @@ if (typeof jQuery != 'undefined') {
 		// this will automatically turn on a <track>
 		startLanguage: '',
 
-		tracksText: mejs.i18n.t('Captions/Subtitles'),
-
 		// By default, no WAI-ARIA live region - don't make a
 		// screen reader speak captions over an audio track.
 		tracksAriaLive: false,
@@ -2732,7 +2722,7 @@ if (typeof jQuery != 'undefined') {
 			player.captionsText = player.captions.find('.mejs-captions-text');
 			player.captionsButton =
 					$('<div class="mejs-button mejs-captions-button">'+
-						'<button type="button" aria-controls="' + t.id + '" title="' + t.options.tracksText + '" aria-label="' + t.options.tracksText + '"></button>'+
+						'<button type="button" aria-controls="' + t.id + '" title="' + mejs.i18n.t('Captions/Subtitles') + '" aria-label="' + mejs.i18n.t('Captions/Subtitles') + '"></button>'+
 						'<div class="mejs-captions-selector">'+
 							'<ul>'+
 								'<li>'+
@@ -2975,7 +2965,7 @@ if (typeof jQuery != 'undefined') {
 			t.captionsButton.find('ul').append(
 				$('<li>'+
 					'<input type="radio" name="' + t.id + '_captions" id="' + t.id + '_captions_' + lang + '" value="' + lang + '" disabled="disabled" />' +
-					'<label for="' + t.id + '_captions_' + lang + '">' + label + ' (loading)' + '</label>'+
+					'<label for="' + t.id + '_captions_' + lang + '">' + label + ' (' + mejs.i18n.t('loading') + ')' + '</label>'+
 				'</li>')
 			);
 
@@ -3574,7 +3564,6 @@ $.extend(mejs.MepDefaults,
 (function($) {
 
 	$.extend(mejs.MepDefaults, {
-		postrollCloseText: mejs.i18n.t('Close')
 	});
 
 	// Postroll
@@ -3586,7 +3575,7 @@ $.extend(mejs.MepDefaults,
 
 			if (typeof postrollLink !== 'undefined') {
 				player.postroll =
-					$('<div class="mejs-postroll-layer mejs-layer"><a class="mejs-postroll-close" onclick="$(this).parent().hide();return false;">' + t.options.postrollCloseText + '</a><div class="mejs-postroll-layer-content"></div></div>').prependTo(layers).hide();
+					$('<div class="mejs-postroll-layer mejs-layer"><a class="mejs-postroll-close" onclick="$(this).parent().hide();return false;">' + mejs.i18n.t('Close') + '</a><div class="mejs-postroll-layer-content"></div></div>').prependTo(layers).hide();
 
 				t.media.addEventListener('ended', function (e) {
 					$.ajax({
