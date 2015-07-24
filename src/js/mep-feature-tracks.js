@@ -231,19 +231,13 @@
 
 					t.loadNextTrack();
 
-				};
-
-
-			$.ajax({
-				url: track.src,
-				dataType: "text",
-				success: function(d) {
-
+				},
+				processCues = function (cues) {
 					// parse the loaded file
-					if (typeof d == "string" && (/<tt\s+xml/ig).exec(d)) {
-						track.entries = mejs.TrackFormatParser.dfxp.parse(d);
+					if (typeof cues == "string" && (/<tt\s+xml/ig).exec(cues)) {
+						track.entries = mejs.TrackFormatParser.dfxp.parse(cues);
 					} else {
-						track.entries = mejs.TrackFormatParser.webvtt.parse(d);
+						track.entries = mejs.TrackFormatParser.webvtt.parse(cues);
 					}
 
 					after();
@@ -259,6 +253,13 @@
 					if (track.kind == 'slides') {
 						t.setupSlides(track);
 					}
+				};
+
+			$.ajax({
+				url: track.src,
+				dataType: "text",
+				success: function(d) {
+					processCues(d);
 				},
 				error: function() {
 					t.loadNextTrack();
