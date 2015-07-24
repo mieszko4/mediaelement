@@ -4,7 +4,6 @@
 (function($) {
 
 	$.extend(mejs.MepDefaults, {
-		postrollCloseText: mejs.i18n.t('Close')
 	});
 
 	// Postroll
@@ -16,7 +15,7 @@
 
 			if (typeof postrollLink !== 'undefined') {
 				player.postroll =
-					$('<div class="mejs-postroll-layer mejs-layer"><a class="mejs-postroll-close" onclick="$(this).parent().hide();return false;">' + t.options.postrollCloseText + '</a><div class="mejs-postroll-layer-content"></div></div>').prependTo(layers).hide();
+					$('<div class="mejs-postroll-layer mejs-layer"><a class="mejs-postroll-close" onclick="$(this).parent().hide();return false;">' + mejs.i18n.t('Close') + '</a><div class="mejs-postroll-layer-content"></div></div>').prependTo(layers).hide();
 
 				t.media.addEventListener('ended', function (e) {
 					$.ajax({

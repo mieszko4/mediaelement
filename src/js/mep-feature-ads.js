@@ -185,7 +185,8 @@
 		adsPrerollStarted: function() {
 			console.log('adsPrerollStarted');
 		
-			var t = this;
+			var t = this,
+				skipText = mejs.i18n.t('Skip in %1 seconds').replace('%1', t.options.adsPrerollAdSkipSeconds.toString());
 			t.media.removeEventListener('playing', t.adsPrerollStartedProxy);		
 			
 			// turn off controls until the preroll is done
@@ -203,7 +204,7 @@
 				t.adsSkipBlock.show();
 
 				if (t.options.adsPrerollAdSkipSeconds > 0) {
-					t.adsSkipMessage.html('Skip in ' + t.options.adsPrerollAdSkipSeconds.toString() + ' seconds.').show();
+					t.adsSkipMessage.html(skipText).show();
 					t.adsSkipButton.hide();					
 				} else {
 					t.adsSkipMessage.hide();
@@ -228,7 +229,7 @@
 					t.adsSkipButton.show();
 					t.adsSkipMessage.hide();				
 				} else {
-					t.adsSkipMessage.html('Skip in ' + Math.round( t.options.adsPrerollAdSkipSeconds - t.media.currentTime ).toString() + ' seconds.')
+					t.adsSkipMessage.html(mejs.i18n.t('Skip in') + ' ' + Math.round( t.options.adsPrerollAdSkipSeconds - t.media.currentTime ).toString() + '.' + mejs.i18n.t('seconds') + '.')
 				}
 			
 			}

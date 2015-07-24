@@ -94,10 +94,18 @@ module.exports = function(grunt) {
             }
         },
         copy: {
-            build: {
+            css: {
                 expand  : true,
                 cwd     : 'src/css/',
                 src     : ['*.png', '*.svg', '*.gif', '*.css'],
+                dest    : 'local-build/',
+                flatten : true,
+                filter  : 'isFile'
+            },
+            translations: {
+                expand  : true,
+                cwd     : 'src/js/',
+                src     : ['me-i18n-locale-*.js'],
                 dest    : 'local-build/',
                 flatten : true,
                 filter  : 'isFile'
@@ -174,7 +182,16 @@ module.exports = function(grunt) {
     });
 
 
-    grunt.registerTask('default', ['concat', 'removelogging', 'uglify', 'cssmin', 'copy',
-        'shell:buildFlash', 'replace:cdnBuild', 'shell:buildFlashCDN', 'clean:temp']);
+    grunt.registerTask('default', [
+    	'concat',
+    	'removelogging',
+    	'uglify',
+    	'cssmin',
+    	'copy',
+      'shell:buildFlash',
+    	'replace:cdnBuild',
+    	'shell:buildFlashCDN',
+    	'clean:temp'
+    ]);
 
 };

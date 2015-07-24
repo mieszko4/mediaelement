@@ -1,8 +1,6 @@
 (function($) {
 
 	$.extend(mejs.MepDefaults, {
-		playText: mejs.i18n.t('Play'),
-		pauseText: mejs.i18n.t('Pause')
 	});
 
 	// PLAY/pause BUTTON
@@ -13,7 +11,7 @@
 				op = t.options,
 				play = 
 				$('<div class="mejs-button mejs-playpause-button mejs-play" >' +
-					'<button type="button" aria-controls="' + t.id + '" title="' + op.playText + '" aria-label="' + op.playText + '"></button>' +
+					'<button type="button" aria-controls="' + t.id + '" title="' + mejs.i18n.t('Play') + '" aria-label="' + mejs.i18n.t('Play') + '"></button>' +
 				'</div>')
 				.appendTo(controls)
 				.click(function(e) {
@@ -34,14 +32,14 @@
 				if ('play' === which) {
 					play.removeClass('mejs-play').addClass('mejs-pause');
 					play_btn.attr({
-						'title': op.pauseText,
-						'aria-label': op.pauseText
+						'title': mejs.i18n.t('Pause'),
+						'aria-label': mejs.i18n.t('Pause')
 					});
 				} else {
 					play.removeClass('mejs-pause').addClass('mejs-play');
 					play_btn.attr({
-						'title': op.playText,
-						'aria-label': op.playText
+						'title': mejs.i18n.t('Play'),
+						'aria-label': mejs.i18n.t('Play')
 					});
 				}
 			};

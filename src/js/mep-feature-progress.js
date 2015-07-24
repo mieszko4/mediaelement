@@ -1,8 +1,6 @@
 (function($) {
 
 	$.extend(mejs.MepDefaults, {
-		progessHelpText: mejs.i18n.t(
-		'Use Left/Right Arrow keys to advance one second, Up/Down arrows to advance ten seconds.')
 	});
 
 	// progress/loaded bar
@@ -11,7 +9,7 @@
 
 			$('<div class="mejs-time-rail">' +
 				'<span  class="mejs-time-total mejs-time-slider">' +
-				//'<span class="mejs-offscreen">' + this.options.progessHelpText + '</span>' +
+				//'<span class="mejs-offscreen">' + mejs.i18n.t('Use Left/Right Arrow keys to advance one second, Up/Down arrows to advance ten seconds.') + '</span>' +
 					'<span class="mejs-time-buffering"></span>' +
 					'<span class="mejs-time-loaded"></span>' +
 					'<span class="mejs-time-current"></span>' +
@@ -83,12 +81,11 @@
             var updateSlider = function (e) {
 
 				var seconds = media.currentTime,
-					timeSliderText = mejs.i18n.t('Time Slider'),
 					time = mejs.Utility.secondsToTimeCode(seconds),
 					duration = media.duration;
 
 				slider.attr({
-					'aria-label': timeSliderText,
+					'aria-label': mejs.i18n.t('Time Slider'),
 					'aria-valuemin': 0,
 					'aria-valuemax': duration,
 					'aria-valuenow': seconds,

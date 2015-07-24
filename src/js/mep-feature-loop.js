@@ -7,7 +7,7 @@
 				// create the loop button
 				loop = 
 				$('<div class="mejs-button mejs-loop-button ' + ((player.options.loop) ? 'mejs-loop-on' : 'mejs-loop-off') + '">' +
-					'<button type="button" aria-controls="' + t.id + '" title="Toggle Loop" aria-label="Toggle Loop"></button>' +
+					'<button type="button" aria-controls="' + t.id + '" title="' + mejs.i18n.t('Toggle Loop') + '" aria-label="' + mejs.i18n.t('Toggle Loop') + '"></button>' +
 				'</div>')
 				// append it to the toolbar
 				.appendTo(controls)

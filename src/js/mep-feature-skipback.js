@@ -2,9 +2,7 @@
 	// skip back button
 
 	$.extend(mejs.MepDefaults, {
-		skipBackInterval: 30,
-		// %1 will be replaced with skipBackInterval in this string
-		skipBackText: mejs.i18n.t('Skip back %1 seconds')
+		skipBackInterval: 30
 	});
 
 	$.extend(MediaElementPlayer.prototype, {
@@ -12,7 +10,7 @@
 			var
 				t = this,
 				// Replace %1 with skip back interval
-				backText = t.options.skipBackText.replace('%1', t.options.skipBackInterval),
+				backText = mejs.i18n.t('Skip back %1 seconds').replace('%1', t.options.skipBackInterval),
 				// create the loop button
 				loop =
 				$('<div class="mejs-button mejs-skip-back-button">' +
