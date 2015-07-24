@@ -255,6 +255,11 @@
 					}
 				};
 
+			if (track.cues) {
+				processCues(track.cues);
+				return;
+			}
+
 			$.ajax({
 				url: track.src,
 				dataType: "text",

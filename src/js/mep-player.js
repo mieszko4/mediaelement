@@ -1178,6 +1178,7 @@
 				t.tracks.push({
 					srclang: (track.attr('srclang')) ? track.attr('srclang').toLowerCase() : '',
 					src: track.attr('src'),
+					cues: track.data('cues'),
 					kind: track.attr('kind'),
 					label: track.attr('label') || '',
 					entries: [],
@@ -1279,7 +1280,7 @@
 				//console.log("resetSize");
 				t.setPlayerSize(t.width, t.height);
 				t.setControlsSize();
-			}, 50);            
+			}, 50);
 		}
 	};
 
