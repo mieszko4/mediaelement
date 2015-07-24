@@ -1195,6 +1195,7 @@ if (typeof jQuery != 'undefined') {
 				t.tracks.push({
 					srclang: (track.attr('srclang')) ? track.attr('srclang').toLowerCase() : '',
 					src: track.attr('src'),
+					cues: track.data('cues'),
 					kind: track.attr('kind'),
 					label: track.attr('label') || '',
 					entries: [],
@@ -1296,7 +1297,7 @@ if (typeof jQuery != 'undefined') {
 				//
 				t.setPlayerSize(t.width, t.height);
 				t.setControlsSize();
-			}, 50);            
+			}, 50);
 		}
 	};
 
@@ -2862,7 +2863,7 @@ if (typeof jQuery != 'undefined') {
 				t.captionsButton.removeClass('mejs-captions-enabled');
 			} else {
 				for (i=0; i<t.tracks.length; i++) {
-					if (t.tracks[i].srclang == lang) {
+					if (t.tracks[i].srclang == lang && t.tracks[i].kind == 'subtitles') {
 						if (t.selectedTrack === null)
 							t.captionsButton.addClass('mejs-captions-enabled');
 						t.selectedTrack = t.tracks[i];
@@ -2903,19 +2904,13 @@ if (typeof jQuery != 'undefined') {
 
 					t.loadNextTrack();
 
-				};
-
-
-			$.ajax({
-				url: track.src,
-				dataType: "text",
-				success: function(d) {
-
+				},
+				processCues = function (cues) {
 					// parse the loaded file
-					if (typeof d == "string" && (/<tt\s+xml/ig).exec(d)) {
-						track.entries = mejs.TrackFormatParser.dfxp.parse(d);
+					if (typeof cues == "string" && (/<tt\s+xml/ig).exec(cues)) {
+						track.entries = mejs.TrackFormatParser.dfxp.parse(cues);
 					} else {
-						track.entries = mejs.TrackFormatParser.webvtt.parse(d);
+						track.entries = mejs.TrackFormatParser.webvtt.parse(cues);
 					}
 
 					after();
@@ -2931,6 +2926,18 @@ if (typeof jQuery != 'undefined') {
 					if (track.kind == 'slides') {
 						t.setupSlides(track);
 					}
+				};
+
+			if (track.cues) {
+				processCues(track.cues);
+				return;
+			}
+
+			$.ajax({
+				url: track.src,
+				dataType: "text",
+				success: function(d) {
+					processCues(d);
 				},
 				error: function() {
 					t.loadNextTrack();
