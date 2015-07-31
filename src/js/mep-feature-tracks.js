@@ -572,7 +572,13 @@
 	Adapted from: http://www.delphiki.com/html5/playr
 	*/
 	var createLinks = function (text) {
-		return text.replace(/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig, "<a href='$1' target='_blank'>$1</a>");
+		return text.replace(/(href=")?(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig, function (match, $1, $2) {
+			if (typeof $1 === 'undefined') {
+				return '<a href="' + $2 + '" target="_blank">' + $2 + '</a>';
+			} else {
+				return match;
+			}
+		});
 	};
 
 	mejs.TrackFormatParser = {
