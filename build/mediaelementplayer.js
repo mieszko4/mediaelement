@@ -3134,11 +3134,12 @@ if (typeof jQuery != 'undefined') {
 				//	width = t.width - left;
 				//}
 
+				var chapterTimeText = mejs.Utility.secondsToTimeCode(chapters.entries.times[i].start) + '&ndash;' + mejs.Utility.secondsToTimeCode(chapters.entries.times[i].stop);
 				t.chapters.append( $(
 					'<div class="mejs-chapter" rel="' + chapters.entries.times[i].start + '" style="left: ' + usedPercent.toString() + '%;width: ' + percent.toString() + '%;">' +
-						'<div class="mejs-chapter-block' + ((i==chapters.entries.times.length-1) ? ' mejs-chapter-block-last' : '') + '">' +
+						'<div class="mejs-chapter-block' + ((i==chapters.entries.times.length-1) ? ' mejs-chapter-block-last' : '') + '" title="' + chapters.entries.text[i] + ' (' + chapterTimeText + ')">' +
 							'<span class="ch-title">' + chapters.entries.text[i] + '</span>' +
-							'<span class="ch-time">' + mejs.Utility.secondsToTimeCode(chapters.entries.times[i].start) + '&ndash;' + mejs.Utility.secondsToTimeCode(chapters.entries.times[i].stop) + '</span>' +
+							'<span class="ch-time">' + chapterTimeText + '</span>' +
 						'</div>' +
 					'</div>'));
 				usedPercent += percent;
