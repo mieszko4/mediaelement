@@ -571,6 +571,10 @@
 
 	Adapted from: http://www.delphiki.com/html5/playr
 	*/
+	var createLinks = function (text) {
+		return text.replace(/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig, "<a href='$1' target='_blank'>$1</a>");
+	};
+
 	mejs.TrackFormatParser = {
 		webvtt: {
 			pattern_timecode: /^((?:[0-9]{1,2}:)?[0-9]{2}:[0-9]{2}([,.][0-9]{1,3})?) --\> ((?:[0-9]{1,2}:)?[0-9]{2}:[0-9]{2}([,.][0-9]{3})?)(.*)$/,
@@ -598,7 +602,7 @@
 							text = text + '\n' + lines[i];
 							i++;
 						}
-						text = $.trim(text).replace(/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig, "<a href='$1' target='_blank'>$1</a>");
+						text = createLinks(text);
 						// Text is in a different array so I can use .join
 						entries.text.push(text);
 						entries.times.push(
@@ -660,7 +664,7 @@
 					if (style) _temp_times.style = style;
 					if (_temp_times.start === 0) _temp_times.start = 0.200;
 					entries.times.push(_temp_times);
-					text = $.trim(lines.eq(i).html()).replace(/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig, "<a href='$1' target='_blank'>$1</a>");
+					text = text = createLinks(lines.eq(i).html());
 					entries.text.push(text);
 					if (entries.times.start === 0) entries.times.start = 2;
 				}
