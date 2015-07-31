@@ -617,6 +617,8 @@
 	-xborder-right: solid 1px #fff;
 	width: 10000px;
 	z-index: 1;
+
+	pointer-events: none;
 }
 
 .mejs-chapters .mejs-chapter {
@@ -633,6 +635,8 @@
 	filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, startColorstr=#323232,endColorstr=#000000);
 	overflow: hidden;
 	border: 0;
+
+	pointer-events: auto;
 }
 
 .mejs-chapters .mejs-chapter .mejs-chapter-block {
@@ -980,4 +984,3 @@ div.mejs-speed-button {
 }
 
 /* End: Skip Back */
-

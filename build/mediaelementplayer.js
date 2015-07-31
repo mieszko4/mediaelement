@@ -3019,14 +3019,20 @@ if (typeof jQuery != 'undefined') {
 				for (i=0; i<track.entries.times.length; i++) {
 					if (t.media.currentTime >= track.entries.times[i].start && t.media.currentTime <= track.entries.times[i].stop) {
 						// Set the line before the timecode as a class so the cue can be targeted if needed
-						t.captionsText.html(track.entries.text[i]).attr('class', 'mejs-captions-text ' + (track.entries.times[i].identifier || ''));
+						if (t.captionsText.data('marker-index') !== i) {
+							t.captionsText.data('marker-index', i);
+							t.captionsText.html(track.entries.text[i]).attr('class', 'mejs-captions-text ' + (track.entries.times[i].identifier || ''));
+						}
+
 						t.captions.show().height(0);
 						return; // exit out if one is visible;
 					}
 				}
 				t.captions.hide();
+				t.captionsText.removeData('marker-index');
 			} else {
 				t.captions.hide();
+				t.captionsText.removeData('marker-index');
 			}
 		},
 
