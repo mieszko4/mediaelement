@@ -4816,9 +4816,9 @@ if (typeof jQuery != 'undefined') {
 				processCues = function (cues) {
 					// parse the loaded file
 					if (typeof cues == "string" && (/<tt\s+xml/ig).exec(cues)) {
-						track.entries = mejs.TrackFormatParser.dfxp.parse(cues);
+						track.entries = mejs.TrackFormatParser.dfxp.parse(cues, track);
 					} else {
-						track.entries = mejs.TrackFormatParser.webvtt.parse(cues);
+						track.entries = mejs.TrackFormatParser.webvtt.parse(cues, track);
 					}
 
 					after();
@@ -5155,20 +5155,14 @@ if (typeof jQuery != 'undefined') {
 	Adapted from: http://www.delphiki.com/html5/playr
 	*/
 	var createLinks = function (text) {
-		return text.replace(/(href=")?(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig, function (match, $1, $2) {
-			if (typeof $1 === 'undefined') {
-				return '<a href="' + $2 + '" target="_blank">' + $2 + '</a>';
-			} else {
-				return match;
-			}
-		});
+		return text.replace(/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig, "<a href='$1' target='_blank'>$1</a>");
 	};
 
 	mejs.TrackFormatParser = {
 		webvtt: {
 			pattern_timecode: /^((?:[0-9]{1,2}:)?[0-9]{2}:[0-9]{2}([,.][0-9]{1,3})?) --\> ((?:[0-9]{1,2}:)?[0-9]{2}:[0-9]{2}([,.][0-9]{3})?)(.*)$/,
 
-			parse: function(trackText) {
+			parse: function(trackText, track) {
 				var
 					i = 0,
 					lines = mejs.TrackFormatParser.split2(trackText, /\r?\n/),
@@ -5191,7 +5185,11 @@ if (typeof jQuery != 'undefined') {
 							text = text + '\n' + lines[i];
 							i++;
 						}
-						text = createLinks(text);
+
+						if (track.kind ==='subtitles') {
+							text = createLinks(text);
+						}
+
 						// Text is in a different array so I can use .join
 						entries.text.push(text);
 						entries.times.push(
@@ -5209,7 +5207,7 @@ if (typeof jQuery != 'undefined') {
 		},
 		// Thanks to Justin Capella: https://github.com/johndyer/mediaelement/pull/420
 		dfxp: {
-			parse: function(trackText) {
+			parse: function(trackText, track) {
 				trackText = $(trackText).filter("tt");
 				var
 					i = 0,
@@ -5253,7 +5251,11 @@ if (typeof jQuery != 'undefined') {
 					if (style) _temp_times.style = style;
 					if (_temp_times.start === 0) _temp_times.start = 0.200;
 					entries.times.push(_temp_times);
-					text = text = createLinks(lines.eq(i).html());
+					text = lines.eq(i).html();
+
+					if (track.kind ==='subtitles') {
+						text = createLinks(lines.eq(i).html());
+					}
 					entries.text.push(text);
 					if (entries.times.start === 0) entries.times.start = 2;
 				}
