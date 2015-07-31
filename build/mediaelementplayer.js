@@ -2714,11 +2714,11 @@ if (typeof jQuery != 'undefined') {
 			t.cleartracks(player, controls, layers, media);
 			player.chapters =
 					$('<div class="mejs-chapters mejs-layer"></div>')
-						.prependTo(layers).hide();
+						.appendTo(layers).hide();
 			player.captions =
 					$('<div class="mejs-captions-layer mejs-layer"><div class="mejs-captions-position mejs-captions-position-hover" ' +
 					attr + '><span class="mejs-captions-text"></span></div></div>')
-						.prependTo(layers).hide();
+						.appendTo(layers).hide();
 			player.captionsText = player.captions.find('.mejs-captions-text');
 			player.captionsButton =
 					$('<div class="mejs-button mejs-captions-button">'+
