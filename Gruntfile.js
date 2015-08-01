@@ -188,9 +188,9 @@ module.exports = function(grunt) {
     	'uglify',
     	'cssmin',
     	'copy',
-      //'shell:buildFlash',
+        'shell:buildFlash',
     	'replace:cdnBuild',
-    	//'shell:buildFlashCDN',
+    	'shell:buildFlashCDN',
     	'clean:temp'
     ]);
 
