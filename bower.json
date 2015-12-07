@@ -16,13 +16,13 @@
   "ignore": [
     "**",
     "!/build/**",
+    "!/build/locale",
     "!/bower.json",
     "!/README*",
     "!/changelog*"
   ],
   "main": [
     "./build/mediaelement-and-player.js",
-    "./build/mediaelementplayer.css",
-    "./build/locale"
+    "./build/mediaelementplayer.css"
   ]
 }
